@@ -18,7 +18,7 @@ public class Mostrador extends AppCompatActivity {
     private TextView ensenar;
     private MyDBAdapter dbAdapter;
     private Button alTodos, alCiclo, alCurso, proTodos, Todo, pokemon;
-    private EditText buscar;
+    private EditText buscar, buscar2;
     private ArrayList<String[]> auxiliar;
     private MyDBAdapter adaptador;
 //hola
@@ -29,6 +29,7 @@ public class Mostrador extends AppCompatActivity {
 
         auxiliar = new ArrayList<String[]>();
         buscar =(EditText) findViewById(R.id.etBuscar);
+        buscar2 =(EditText) findViewById(R.id.etBuscar2);
         ensenar = (TextView) findViewById(R.id.ensenar);
         alTodos = (Button) findViewById(R.id.alTodo);
         alCiclo = (Button) findViewById(R.id.alCiclos);
@@ -39,6 +40,7 @@ public class Mostrador extends AppCompatActivity {
 
         dbAdapter = new MyDBAdapter(this);
         dbAdapter.abrirBD();
+        /*
 
         alTodos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +64,23 @@ public class Mostrador extends AppCompatActivity {
                     ensenar.setText(ensenar.getText()+"\n"+"\n");
                 }
             }
-        });
+        });  */
+    }
+    /*
+    public void ExaPuls(View V) {
+
+        ensenar.setText("Alumnos \n");
+
+        String query = buscar.getText().toString();
+        String edad = buscar2.getText().toString();
+
+        ArrayList<String> ASG = dbAdapter.recuperarExamen(query, edad);
+
+        for (int i = 0; i < ASG.size(); i++) {
+
+            ensenar.setText(ensenar.getText() + "\n" + ASG.get(i) + "\n");
+
+        }
     }
 
     //BOTON TODOS LOS ALUMNOS
@@ -78,6 +96,20 @@ public class Mostrador extends AppCompatActivity {
 
         }
     }*/
+
+    public void ExaPuls(View V) {
+
+        ensenar.setText("Alumnos \n");
+
+        String name = buscar.getText().toString();
+        ArrayList<String> EXA = dbAdapter.recuperarExamen(name);
+
+        for (int i = 0; i < EXA.size(); i++) {
+
+            ensenar.setText(ensenar.getText() + "\n" + EXA.get(i) + "\n");
+
+        }
+    }
 
     public void alTodoPuls(View V) {
         MyDBAdapter adaptador;

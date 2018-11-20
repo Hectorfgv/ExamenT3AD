@@ -21,14 +21,14 @@ public class MyDBAdapter {
     private static final String DATABASE_CREATE_AL = "CREATE TABLE " + DATABASE_AL + " (_ID integer primary key autoincrement, Nombre text, Apellido text, Edad text, Ciclo text, Curso text, Media text);";
     private static final String DATABASE_CREATE_PRO = "CREATE TABLE " + DATABASE_PRO + " (_ID integer primary key autoincrement, Nombre text, Apellido text, Edad text, Ciclo text, Tutor text, Despacho text);";
 
-    //EXAMEN CREAR TABLA ASIGNATURAS
+
     private static final String DATABASE_CREATE_ASG = "CREATE TABLE " + DATABASE_ASG + " (_ID integer primary key autoincrement, Nombre text, Alumnos integer);";
     private static final String DATABASE_CREATE_PKM = "CREATE TABLE " + DATABASE_PKM + " (_ID integer primary key autoincrement, Nombre text, Tipo text);";
 
     private static final String DATABASE_DROP_AL = "DROP TABLE IF EXISTS " + DATABASE_AL + ";";
     private static final String DATABASE_DROP_PRO = "DROP TABLE IF EXISTS " + DATABASE_PRO + ";";
 
-    //EXAMEN
+
     private static final String DATABASE_DROP_ASG = "DROP TABLE IF EXISTS " + DATABASE_ASG + ";";
     private static final String DATABASE_DROP_PKM = "DROP TABLE IF EXISTS " + DATABASE_PKM + ";";
 
@@ -72,9 +72,6 @@ public class MyDBAdapter {
     }
 
 
-
-
-    //EXAMEN -- METODO DE INSERTAR DE ASIGNATURAS
     public void insertarAsignatura(String nom, Integer alum) {
 
         ContentValues valores3 = new ContentValues();
@@ -86,8 +83,75 @@ public class MyDBAdapter {
         db.insert(DATABASE_ASG, null, valores3);
 
     }
+    public ArrayList<String> recuperarExamen(String name) {
 
-    //EXAMEN -- METODO DE RECUPERACION DE ALUMNOS NOMBRE
+        ArrayList<String> EXA = new ArrayList<>();
+
+        String Nombre = name;
+
+        Cursor asignaturas = db.query(DATABASE_AL, null, "Nombre=?", new String[]{Nombre}, null, null, null);
+
+        if (asignaturas != null && asignaturas.moveToFirst()) {
+            do {
+                EXA.add(asignaturas.getString(1) + " " + asignaturas.getString(2));
+            } while (asignaturas.moveToNext());
+        }
+        return EXA;
+    }
+    /*
+
+    public ArrayList<String> recuperarExamen(String name, String age){
+        //Devuelvo una lista de arrays de Strings no una lista de Strings, cada array, es un alumno
+        ArrayList<String> EXA = new ArrayList<String>();
+        String Nombre = name;
+        String Edad = age;
+
+        Cursor cursor = db.rawQuery("select * from alumnos where (Nombre=[name] AND Edad=[age])", null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                EXA.add(cursor.getString(1) + " " + cursor.getString(2));
+            } while (cursor.moveToNext());
+        }
+        return EXA;
+        // Cursor cursor = db.rawQuery("select * from estudiantes where (ciclo='DAM' or ciclo='DAW') order by ciclo", null);
+        if (cursor != null && cursor.moveToFirst()){
+            do{
+                //Cada columna es un valor del array
+                String [] valores = new String [5];
+                valores[0]=(cursor.getString(1));
+                valores[1]=(cursor.getString(2));
+                valores[2]=(cursor.getString(3));
+                valores[3]=(cursor.getString(4));
+                valores[4]=(cursor.getString(5));
+
+                est.add(valores);
+            }while (cursor.moveToNext());
+        }
+
+
+    }
+    */
+    /*
+    public ArrayList<String> recuperarExamen(String query, String edad) {
+
+        ArrayList<String> EXA = new ArrayList<>();
+
+        String Nombre = query;
+        String ed = edad;
+
+        Cursor examen = db.query(DATABASE_AL, null, "Nombre=?", new String[]{Nombre}, null, null, null);
+
+        if (examen != null && examen.moveToFirst()) {
+            do {
+                EXA.add(examen.getString(1) + " " + examen.getString(2));
+            } while (examen.moveToNext());
+        }
+        return EXA;
+    }
+    */
+
+
     public ArrayList<String> recuperarAlumnosNombre() {
 
         ArrayList<String> alumnos = new ArrayList<String>();
