@@ -21,7 +21,7 @@ public class Mostrador extends AppCompatActivity {
     private EditText buscar;
     private ArrayList<String[]> auxiliar;
     private MyDBAdapter adaptador;
-
+//hola
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
